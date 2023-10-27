@@ -85,3 +85,15 @@ wget -q -O - https://nightly.odoo.com/odoo.key | sudo gpg --dearmor -o /usr/shar
 echo 'deb [signed-by=/usr/share/keyrings/odoo-archive-keyring.gpg] https://nightly.odoo.com/16.0/nightly/deb/ ./' | sudo tee /etc/apt/sources.list.d/odoo.list
 sudo apt-get update && sudo apt-get install odoo -y
 
+# Finalización -----------------------------------------------------------------------
+ip_address=$(ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+echo ""
+echo ""
+echo -e "\033[0;92mInstalación finalizada.\033[0;37m"
+echo ""
+echo -e "Odoo: \033[0;96mhttp://$ip_address:8069\033[0;37m"
+echo -e "pgAdmin4: \033[0;96mhttp://$ip_address/pgadmin4\033[0;37m"
+echo ""
+echo ""
+echo -e "\033[0;96mPresiona ENTER para terminar.\033[0;37m"
+read -p ""
