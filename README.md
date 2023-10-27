@@ -1,8 +1,9 @@
 # odoo-installation-ubuntu
 
 ```bash
-curl -O -L https://github.com/gtoledano-losboscos/odoo-installation-ubuntu/tree/develop/OdooInstall_ubuntu.sh \
-export POSTGRES_NAME="<name>" \
-export POSTGRES_PASSWORD="<password>" \
+curl -O -L https://raw.githubusercontent.com/gtoledano-losboscos/AutoOdoo-Script-ubuntu/develop/AutoOdoo-Ubuntu.sh
+export POSTGRES_NAME="gtoledano"
+export POSTGRES_PASSWORD="21061997cC@"
 source ./OdooInstall_ubuntu.sh
+
 ```
