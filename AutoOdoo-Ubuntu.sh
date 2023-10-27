@@ -76,7 +76,7 @@ echo 'deb [signed-by=/usr/share/keyrings/odoo-archive-keyring.gpg] https://night
 sudo apt-get update && sudo apt-get install odoo -y
 
 # Finalización -----------------------------------------------------------------------
-ip_address=$(ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+ip_address=$(ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '^127\.0\.0\.1$')
 echo ""
 echo ""
 echo -e "\033[0;92mInstalación finalizada.\033[0;37m"
