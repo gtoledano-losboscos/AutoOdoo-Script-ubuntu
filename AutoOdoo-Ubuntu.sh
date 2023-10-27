@@ -40,7 +40,6 @@ read -p ""
 
 
 # Actualización del sistema ----------------------------------------------------------
-
 sudo apt update && sudo apt upgrade -y
 
 # Instalación de herramientas necesarias ---------------------------------------------
@@ -53,25 +52,17 @@ else
 fi
 
 # Instalación de PostgreSQL ----------------------------------------------------------
-
-# Create the file repository configuration:
 sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-
-# Import the repository signing key:
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-
-# Update the package lists:
 sudo apt-get update
 
 # Install the latest version of PostgreSQL.
-# If you want a specific version, use 'postgresql-12' or similar instead of 'postgresql':
 sudo apt-get install postgresql postgresql-contrib -y
 
 # Create a new database user:
-sudo -u postgres psql
-CREATE USER $POSTGRES_NAME WITH PASSWORD $POSTGRES_PASSWORD;
-ALTER USER $POSTGRES_NAME WITH SUPERUSER;
-ALTER USER postgres WITH PASSWORD $POSTGRES_PASSWORD;
+sudo -u postgres psql -c "CREATE USER $POSTGRES_NAME WITH PASSWORD '$POSTGRES_PASSWORD';"
+sudo -u postgres psql -c "ALTER USER $POSTGRES_NAME WITH SUPERUSER;"
+sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD '$POSTGRES_PASSWORD';"
 
 
 # Instalación de pgAdmin4 ------------------------------------------------------------
@@ -80,7 +71,6 @@ sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] h
 sudo apt install pgadmin4-web
 
 # Instalación de Odoo ----------------------------------------------------------------
-
 wget -q -O - https://nightly.odoo.com/odoo.key | sudo gpg --dearmor -o /usr/share/keyrings/odoo-archive-keyring.gpg
 echo 'deb [signed-by=/usr/share/keyrings/odoo-archive-keyring.gpg] https://nightly.odoo.com/16.0/nightly/deb/ ./' | sudo tee /etc/apt/sources.list.d/odoo.list
 sudo apt-get update && sudo apt-get install odoo -y
@@ -94,6 +84,7 @@ echo ""
 echo -e "Odoo: \033[0;96mhttp://$ip_address:8069\033[0;37m"
 echo -e "pgAdmin4: \033[0;96mhttp://$ip_address/pgadmin4\033[0;37m"
 echo ""
+echo "Utilice las credenciales proporcionadas para acceder a PgAdmin4
 echo ""
 echo -e "\033[0;96mPresiona ENTER para terminar.\033[0;37m"
 read -p ""
