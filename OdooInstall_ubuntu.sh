@@ -1,8 +1,47 @@
 #!/bin/bash
 
-sudo apt update && sudo apt upgrade -y
+# Presentación -----------------------------------------------------------------------
+echo -e "\033[0;95m
+    _______       _____      ________________                 ________            _____        _____ 
+    ___    |___  ___  /________  __ \_____  /___________      __  ___/_______________(_)_________  /_
+    __  /| |  / / /  __/  __ \  / / /  __  /_  __ \  __ \     _____ \_  ___/_  ___/_  /___  __ \  __/
+    _  ___ / /_/ // /_ / /_/ / /_/ // /_/ / / /_/ / /_/ /     ____/ // /__ _  /   _  / __  /_/ / /_  
+    /_/  |_\__,_/ \__/ \____/\____/ \__,_/  \____/\____/      /____/ \___/ /_/    /_/  _  .___/\__/  
+                                                                                        /_/           "
 
-# sudo apt install git -y
+echo -e "\033[0;96m
+                             _              _       _       _             
+                            | |_ _ _    ___| |_ ___| |___ _| |___ ___ ___ 
+                            | . | | |  | . |  _| . | | -_| . | .'|   | . |
+                            |___|_  |  |_  |_| |___|_|___|___|__,|_|_|___|
+                                |___|  |___| 
+\033[0;37m"
+
+echo ""
+echo ""
+
+echo -e "\033[0;91m -------------------------- ¡ATENCIÓN! ------------------------- \033[0;37m"
+echo "Este script convertirá tu equipo en un servidor de Odoo."
+echo ""
+echo ""
+
+echo -e "\033[0;91mSe requieren permisos de superusuario para instalar las herramientas necesarias.\033[0;37m"
+
+echo -e "Se instalarán las siguientes herramientas:\033[0;92m"
+echo -e " - PostgreSQL"
+echo -e " - Odoo"
+echo -e " - pgAdmin4\033[0;37m"
+
+echo ""
+echo ""
+
+echo -e "\033[0;96mPresiona ENTER para continuar o CTRL+C para cancelar.\033[0;37m"
+read -p ""
+
+
+# Actualización del sistema ----------------------------------------------------------
+
+sudo apt update && sudo apt upgrade -y
 
 # Instalación de herramientas necesarias ---------------------------------------------
 if command -v wget > /dev/null 2>&1;
@@ -13,12 +52,9 @@ else
     sudo apt install wget -y
 fi
 
-
-
-
 # Instalación de PostgreSQL ----------------------------------------------------------
 
-Create the file repository configuration:
+# Create the file repository configuration:
 sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 
 # Import the repository signing key:
@@ -29,14 +65,23 @@ sudo apt-get update
 
 # Install the latest version of PostgreSQL.
 # If you want a specific version, use 'postgresql-12' or similar instead of 'postgresql':
-sudo apt-get -y install postgresql postgresql-contrib
+sudo apt-get install postgresql postgresql-contrib -y
+
+# Create a new database user:
+sudo -u postgres psql
+CREATE USER $POSTGRES_NAME WITH PASSWORD $POSTGRES_PASSWORD;
+ALTER USER $POSTGRES_NAME WITH SUPERUSER;
+ALTER USER postgres WITH PASSWORD $POSTGRES_PASSWORD;
 
 
-
+# Instalación de pgAdmin4 ------------------------------------------------------------
+curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+sudo apt install pgadmin4-web
 
 # Instalación de Odoo ----------------------------------------------------------------
 
 wget -q -O - https://nightly.odoo.com/odoo.key | sudo gpg --dearmor -o /usr/share/keyrings/odoo-archive-keyring.gpg
 echo 'deb [signed-by=/usr/share/keyrings/odoo-archive-keyring.gpg] https://nightly.odoo.com/16.0/nightly/deb/ ./' | sudo tee /etc/apt/sources.list.d/odoo.list
-sudo apt-get update && sudo apt-get install odoo
+sudo apt-get update && sudo apt-get install odoo -y
 
