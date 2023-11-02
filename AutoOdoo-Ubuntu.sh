@@ -38,13 +38,13 @@ echo ""
 echo -e "\033[0;96mPresiona ENTER para continuar o CTRL+C para cancelar.\033[0;37m"
 read -p ""
 
-$POSTGRES_NAME = $NAME
-$POSTGRES_PASSWORD = $PASSWORD
-$PGADMIN_SETUP_EMAIL = $EMAIL
-$PGADMIN_SETUP_PASSWORD = $PASSWORD
+POSTGRES_NAME=$NAME
+POSTGRES_PASSWORD=$PASSWORD
+PGADMIN_SETUP_EMAIL=$EMAIL
+PGADMIN_SETUP_PASSWORD=$PASSWORD
 
-export $PGADMIN_SETUP_EMAIL
-export $PGADMIN_SETUP_PASSWORD
+export PGADMIN_SETUP_EMAIL
+export PGADMIN_SETUP_PASSWORD
 
 # Actualización del sistema ----------------------------------------------------------
 sudo DEBIAN_FRONTEND=noninteractive apt update && sudo DEBIAN_FRONTEND=noninteractive apt -y upgrade
