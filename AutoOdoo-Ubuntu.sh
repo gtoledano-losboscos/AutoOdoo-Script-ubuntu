@@ -47,7 +47,8 @@ export $PGADMIN_SETUP_EMAIL
 export $PGADMIN_SETUP_PASSWORD
 
 # Actualización del sistema ----------------------------------------------------------
-sudo apt update && sudo apt upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt update && sudo DEBIAN_FRONTEND=noninteractive apt -y upgrade
+
 
 # Instalación de herramientas necesarias ---------------------------------------------
 if command -v wget > /dev/null 2>&1;
