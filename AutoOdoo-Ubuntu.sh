@@ -93,7 +93,7 @@ echo ""
 echo -e "Odoo: \033[0;96mhttp://$ip_address:8069\033[0;37m"
 echo -e "pgAdmin4: \033[0;96mhttp://$ip_address/pgadmin4\033[0;37m"
 echo ""
-echo "Utilice las credenciales proporcionadas para acceder a PgAdmin4
+echo "Utilice las credenciales proporcionadas para acceder a PgAdmin4"
 echo ""
 echo -e "\033[0;96mPresiona ENTER para terminar.\033[0;37m"
 read -p ""
