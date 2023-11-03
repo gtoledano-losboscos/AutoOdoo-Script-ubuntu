@@ -84,7 +84,9 @@ wget -q -O - https://nightly.odoo.com/odoo.key | sudo gpg --yes --dearmor -o /us
 echo 'deb [signed-by=/usr/share/keyrings/odoo-archive-keyring.gpg] https://nightly.odoo.com/16.0/nightly/deb/ ./' | sudo tee /etc/apt/sources.list.d/odoo.list
 sudo apt-get update && sudo apt-get install odoo -y
 
+
 # Finalización -----------------------------------------------------------------------
+sudo /usr/pgadmin4/bin/setup-web.sh --yes
 ip_address=$(ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '^127\.0\.0\.1$')
 echo ""
 echo ""
@@ -93,9 +95,6 @@ echo ""
 echo -e "Odoo: \033[0;96mhttp://$ip_address:8069\033[0;37m"
 echo -e "pgAdmin4: \033[0;96mhttp://$ip_address/pgadmin4\033[0;37m"
 echo ""
-
-sudo /usr/pgadmin4/bin/setup-web.sh --yes
-
 echo "Utilice las credenciales proporcionadas para acceder a PgAdmin4"
 echo ""
 echo -e "\033[0;96mPresiona ENTER para terminar.\033[0;37m"
