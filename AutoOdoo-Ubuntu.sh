@@ -77,7 +77,7 @@ sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD '$POSTGRES_PASSWORD'
 curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
 sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update' -y
 sudo apt install pgadmin4-web -y
-sudo /usr/pgadmin4/bin/setup-web.sh -y
+sudo /usr/pgadmin4/bin/setup-web.sh --yes
 
 # Instalación de Odoo ----------------------------------------------------------------
 wget -q -O - https://nightly.odoo.com/odoo.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/odoo-archive-keyring.gpg
